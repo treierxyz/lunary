@@ -16,21 +16,17 @@
     <div id="toast">
       <p>Emoji copied to clipboard</p>
     </div>
-    <div class="container">
-      <h1 class="title">Current Moon phase is:</h1>
+    <main>
+      <h1>Current Moon phase is:</h1>
       <div id="emoji">❓</div>
       <p id="phase">Unknown</p>
       <div class="layered">
         <div class="progressbar">
-          <div class="bg">
-            <!-- <div id="bar"></div> -->
-          </div>
+          <div class="bg"></div>
           <p class="percentage">--.----%</p>
         </div>
         <div class="progressbar fullprogress">
-          <div class="bg">
-            <!-- <div id="bar"></div> -->
-          </div>
+          <div class="bg"></div>
           <p class="percentage">--.----%</p>
         </div>
       </div>
@@ -41,17 +37,16 @@
         <p>🌗</p>
         <p>🌑</p>
       </div>
-    </div>
+    </main>
     <footer>
       <p>Made by <a href="https://treier.xyz">treierxyz</a></p>
     </footer>
   </body>
 </html>
 
-<style>
-  /* @link https://utopia.fyi/type/calculator?c=320,18,1.2,1240,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
-
+<style lang="scss">
   :root {
+    /* @link https://utopia.fyi/type/calculator?c=320,18,1.2,1240,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
     --step--2: clamp(0.78rem, calc(0.77rem + 0.03vw), 0.8rem);
     --step--1: clamp(0.94rem, calc(0.92rem + 0.11vw), 1rem);
     --step-0: clamp(1.13rem, calc(1.08rem + 0.22vw), 1.25rem);
@@ -67,23 +62,17 @@
 
     --progress-width: 0%;
 
-    color-scheme: only light;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
+    color-scheme: only dark;
   }
 
   * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font: inherit;
     font-family: sans-serif;
     text-align: center;
     color: var(--secondary);
-    text-decoration: none;
   }
 
   a:hover {
@@ -93,6 +82,25 @@
   body {
     background-color: var(--background);
     min-height: 100svh;
+  }
+
+  main {
+    display: flex;
+    height: 100svh;
+    flex-direction: column;
+    justify-content: center;
+    width: min(100% - 3rem, 65ch);
+    margin-inline: auto;
+    > * + * {
+      margin-top: 1rem;
+    }
+  }
+
+  footer {
+    position: fixed;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
   }
 
   h1 {
@@ -105,19 +113,6 @@
     font-size: var(--step--1);
   }
 
-  .container {
-    display: flex;
-    height: 100svh;
-    flex-direction: column;
-    justify-content: center;
-    width: min(100% - 3rem, 65ch);
-    margin-inline: auto;
-  }
-
-  .container > * + * {
-    margin-top: 1rem;
-  }
-
   #emoji {
     font-size: clamp(10rem, calc(8.45rem + 10vw), 50rem);
     user-select: none;
@@ -127,49 +122,35 @@
     font-size: var(--step-0);
   }
 
+  .layered {
+    display: inline-grid;
+    > * {
+      grid-column-start: 1;
+      grid-row-start: 1;
+    }
+  }
+
   .progressbar {
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     border-radius: 10px;
-  }
-
-  .progressbar > .bg {
-    position: relative;
     width: 100%;
     height: 2rem;
-    vertical-align: middle;
     background-color: var(--secondary);
-  }
-
-  .percentage {
-    position: absolute;
-    color: var(--background);
-    /* mix-blend-mode: luminosity; */
-  }
-
-  .layered {
-    display: inline-grid;
-  }
-
-  .layered > * {
-    grid-column-start: 1;
-    grid-row-start: 1;
+    > .percentage {
+      position: absolute;
+      color: var(--background);
+    }
   }
 
   .progressbar.fullprogress {
     clip-path: xywh(0 0 var(--progress-width) 100%);
-  }
-
-  .progressbar.fullprogress > .bg {
     background-color: var(--primary);
-  }
-
-  .fullprogress > .percentage {
-    position: absolute;
-    color: var(--secondary);
-    /* mix-blend-mode: luminosity; */
+    > .percentage {
+      color: var(--secondary);
+    }
   }
 
   #progress-marks {
@@ -178,13 +159,7 @@
     margin-top: 0;
   }
 
-  footer {
-    position: fixed;
-    bottom: 1rem;
-    left: 0;
-    right: 0;
-  }
-
+  /* Toast to notify copying to clipboard */
   #toast {
     position: fixed;
     background-color: var(--primary);
