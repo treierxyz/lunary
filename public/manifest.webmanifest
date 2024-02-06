@@ -1,0 +1,19 @@
+{
+    "name": "Lunary",
+    "short_name": "Lunary",
+    "icons": [
+        {
+            "src": "/cheese_192px.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/cheese_512px.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }     
+    ],
+    "theme_color": "#55aec7",
+    "background_color": "#1d1f20",
+    "display": "standalone"
+}
